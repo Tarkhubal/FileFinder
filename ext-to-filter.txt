@@ -1,3 +1,10 @@
 .png
 .jpg
-.heif
+.mov
+.mp4
+.mp3
+.wav
+.mkv
+.jfif
+.gif
+.jpeg

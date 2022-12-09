@@ -1,5 +1,7 @@
 import pathlib
 import shutil
+import os
+import re
 
 class ANSI():
     def color(bg, fg, style):
@@ -25,13 +27,21 @@ for path in pathlib.Path("./input").iterdir():
     
     for ext in all_ext:
         if file.endswith(ext):
-            print(ANSI.color(7, 49, 32) + "--> File \"" + str(file) + "\" (file number " + str(file_nb) + ") is a     " + str(ext) + " file" + ANSI.color(0, 94, 39))
+            print("--> " + ANSI.color(7, 49, 32) + "File \"" + str(file) + "\" (file number " + str(file_nb) + ") is a " + str(ext) + " file" + ANSI.color(0, 94, 39))
             file_moved += 1
             
-            shutil.move("./input/" + str(file), "./output/" + str(file))
+            if os.path.exists("./output/" + str(ext)) == False:
+                os.mkdir("./output/" + str(ext))
+            
+            output_folder = "./output/" + str(ext) + "/"
+            shutil.move("./input/" + str(file), str(output_folder) + str(file))
+            
+            break
+        elif file == "the-folder-where-you-put-files":
             break
         else:
             print("    File \"" + str(file) + "\" (file number " + str(file_nb) + ") is not a " + str(ext) + " file")
+    print("\n")
     file_nb += 1
 
 print("Successfully moved " + str(file_moved) + " files out of " + str(nbfiles) + " files in the output folder !")
